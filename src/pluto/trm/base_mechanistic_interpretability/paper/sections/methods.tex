@@ -1,0 +1,34 @@
+\section{Methods}
+
+\subsection{Task and data}
+We use modular addition with modulus $P{=}113$.
+Inputs are formatted as ``$a\ b\ =$'' with $a,b\in\{0,\ldots,P{-}1\}$; the model predicts $c=(a+b)\bmod P$ at the ``$=$'' token.
+We use a 30\% train / 70\% test split over all $P^2$ pairs ($n_{\mathrm{train}}{=}3{,}823$, $n_{\mathrm{test}}{=}7{,}846$), with split seed fixed for reproducibility.
+
+\subsection{Model ladder}
+\textbf{Nanda calibration (MLP, fidelity A):} one-layer transformer with MLP (not attention-only), trained with cross-entropy loss matching Nanda's fidelity A setting.
+\textbf{TRM minimal:} stripped TRM with recursion depth reduced to isolate weight-level circuit formation.
+\textbf{TRM full (B and A):} full ACT-based TRM; variant B uses standard loss, variant A uses cross-entropy fidelity A.
+
+\subsection{Training and checkpoints}
+Primary hybrid runs train for 50{,}000 AdamW steps (matching Nanda's 40k--50k epoch scale), with checkpoints every 2{,}000 steps.
+Before extending TRM from 20k to 50k, we require a Ren mechanistic baseline on all TRM seeds (Section~\ref{sec:ren}).
+We select three analysis checkpoints per run from the logged training history:
+\textbf{final} (last logged step),
+\textbf{grokking} (first step with test accuracy $\geq 0.99$ and test loss $\leq 0.05$),
+and \textbf{best FVE} (highest faithful logit trig-FVE among high-accuracy steps).
+For full TRM, we report mechanistic metrics at the grokking/best-FVE checkpoint when the final checkpoint degrades.
+
+\subsection{Progress measures}
+Following \citet{nanda2023progress}, we compute:
+embedding and unembedding Fourier norms;
+key frequencies with largest excluded-loss sensitivity;
+\textbf{restricted (trig) loss}---cross-entropy after projecting logits onto $\cos/\sin(w_k(a+b-c))$ for key frequencies $k$;
+\textbf{excluded loss}---cross-entropy after sequentially removing those Fourier components;
+and \textbf{faithful logit trig-FVE}---variance explained by the matched trig projection with bias correction.
+
+\subsection{Mechanistic evidence}
+We report $W_L$ neuron--logit Fourier maps, per-neuron frequency assignments (cos/sin basis, $R^2$), attention decomposition, single- and all-frequency causal ablations, and squared weight-norm trajectories across checkpoints.
+
+\subsection{Latent recursion probes}
+For TRM variants we run HRM-style reasoning-vs-guessing probes on ACT steps and ACT-depth ablations (max steps $\in\{1,2,4,8\}$) on held-out test pairs.

@@ -1,0 +1,50 @@
+\section{Ren mechanistic diagnosis (arXiv:2601.10679)}
+\label{sec:ren}
+
+Following Ren et al., we probe whether post-grokking degradation reflects \emph{latent guessing} (fixed-point violation, ACT-depth sensitivity) versus \emph{Nanda-style cleanup} (FVE collapse under weight decay while accuracy stays high).
+
+\paragraph{Protocol.}
+For each TRM seed we run Ren probes at three checkpoints: final, grokking, and best-FVE.
+Metrics: fixed-point violation rate, ACT-depth accuracy curve, critical ACT-step grokking step, latent PCA at ``$=$''.
+
+\paragraph{Full TRM.}
+Full TRM exhibits Ren-style failure modes: non-zero fixed-point violation and accuracy drop as max ACT steps increase (Figure~\ref{fig:ren_act}).
+Latent trajectories show non-monotonic refinement (Figure~\ref{fig:pca_ren}).
+
+\paragraph{TRM minimal (null test).}
+Minimal TRM uses a single ACT step; ACT-depth ablation collapses to that step.
+When fixed-point violation and depth sensitivity are near zero, we classify post-grokking FVE loss as \textbf{Nanda cleanup}, not Ren guessing (Table~\ref{tab:ren_mechanism}).
+At 50k steps, minimal TRM seeds 2--4 remain in Nanda-cleanup basins despite perfect accuracy; seeds 0--1 form stable Fourier circuits with final FVE $\geq 0.90$.
+Full TRM seeds 1--4 show Ren fixed-point guessing (seed~0: cleanup-dominant at final checkpoint).
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figures/fig_ren_act_depth.pdf}
+  \caption{ACT-depth sensitivity (Ren fixed-point stress test).}
+  \label{fig:ren_act}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/fig_ren_fp_violation.pdf}
+  \caption{Fixed-point violation rate per seed/checkpoint: full TRM corrupts
+  previously correct outputs on later ACT steps (Ren guessing), whereas minimal
+  TRM is near zero (Nanda cleanup, not guessing).}
+  \label{fig:ren_fp}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\linewidth]{figures/fig_latent_pca_trajectory.pdf}
+  \caption{Latent PCA across ACT steps (full TRM representative seed).}
+  \label{fig:pca_ren}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/fig_ren_mechanism_summary.pdf}
+  \caption{Per-seed post-grokking mechanism classification.}
+  \label{fig:ren_mech}
+\end{figure}
+
+\input{tables/ren_mechanism_summary}

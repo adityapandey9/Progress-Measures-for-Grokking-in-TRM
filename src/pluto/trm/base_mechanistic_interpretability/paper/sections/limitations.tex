@@ -1,0 +1,44 @@
+\section{Limitations and honest scope}
+
+\paragraph{50k extension.}
+Extending training to 50k steps does not yield four-of-five minimal-TRM seeds with $\geq 90\%$ faithful FVE at the final checkpoint (two of five at final; two of five at best-FVE).
+Seed~1 improves under longer training (final FVE 0.907 at step 50k), but seeds 2--4 remain in Nanda-cleanup basins with 100\% accuracy and FVE $\leq 0.27$ at the final checkpoint.
+Ren diagnosis confirms these failures are not latent guessing on minimal TRM (fixed-point violation $\approx 0$).
+
+\paragraph{Full TRM does not match Nanda's $\sim$95\% final-logit FVE.}
+Full TRM groks reliably but faithful trig-FVE on final logits remains low even
+under the data-driven frequency count (mean $\HybridFullFVEAdaptive$ adaptive,
+$\HybridFullFVE$ at the legacy five-frequency cut-off); the shortfall is genuine,
+not a metric artifact. Ren-style guessing and fixed-point violation dominate
+(Section~\ref{sec:ren}).
+
+\paragraph{TRM minimal FVE is seed- and checkpoint-dependent.}
+Under the data-driven frequency count, seeds 0--1 reach faithful FVE $\approx 0.99$
+at the 50k final checkpoint---matching the calibrated Nanda baseline---but seeds
+2--4 remain non-Fourier (adaptive FVE $\leq 0.56$), so the multi-seed mean is only
+$\HybridMinimalFVEAdaptive$ ($\HybridMinimalSeedsClean$/$\BMINSeeds$ seeds
+$\geq 0.95$). Post-grokking cleanup degrades these seeds' FVE while accuracy stays
+at 100\% (Table~\ref{tab:seed_variance}); adding more frequencies does not recover
+them, confirming a real mechanistic divergence rather than under-counting.
+
+\textbf{Task simplicity.}
+Modular addition follows \citet{nanda2023progress}; HRM-style probes are analogous to \citet{ren2026reasoning}, not a full Sudoku reproduction.
+
+\textbf{Claims we make.}
+(1)~Nanda MLP calibrates the metric stack---all $\BMINSeeds$ seeds reach
+faithful trig-FVE $\geq 0.95$ (mean $\HybridNandaFVEAdaptive$) under a data-driven
+frequency count, matching \citet{nanda2023progress};
+(2)~minimal TRM \emph{can} recover a Nanda-grade Fourier circuit (two of five
+seeds reach $\approx 0.99$ at the final checkpoint; best-seed and best-checkpoint
+evidence for the rest);
+(3)~full TRM is an extension showing latent recursion changes the mechanistic
+signature (no seed forms the Fourier circuit).
+
+\section{Reproducibility}
+All experiments use fixed random seeds, logged training histories, and automated aggregation pipelines.
+Code and checkpoints will be released upon publication.
+
+\section{Conclusion}
+We present a hybrid latent-grokking study with a three-model ladder.
+Nanda calibration validates progress measures; TRM minimal recovers a high-FVE sparse Fourier circuit on best seeds/checkpoints; full TRM groks with distinct latent-recursion dynamics.
+Reporting final, grokking, and best-FVE checkpoints separately is essential for honest mechanistic claims.

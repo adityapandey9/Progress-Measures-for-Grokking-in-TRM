@@ -1,0 +1,36 @@
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{llrrrrrr p{2.4cm}}
+\caption{Per-seed metrics and diagnosis.}\label{tab:perseed} \\
+\toprule
+Model & Seed & Final Acc & Final FVE & Grok Step & Grok FVE & Best Step & Best FVE & Diagnosis \\
+\midrule
+\endfirsthead
+\multicolumn{9}{c}{\tablename\ \thetable\ -- continued} \\
+\toprule
+Model & Seed & Final Acc & Final FVE & Grok Step & Grok FVE & Best Step & Best FVE & Diagnosis \\
+\midrule
+\endhead
+nanda\_a\_mlp & 0 & 1.000 & 0.827 & 3100 & 0.000 & 3000 & 0.883 & stable\_\allowbreak circuit \\
+nanda\_a\_mlp & 1 & 1.000 & 0.747 & 4100 & 0.000 & 4000 & 0.849 & stable\_\allowbreak circuit \\
+nanda\_a\_mlp & 2 & 0.999 & 0.848 & 3100 & 0.000 & 37000 & 0.916 & stable\_\allowbreak circuit \\
+nanda\_a\_mlp & 3 & 1.000 & 0.884 & 4000 & 0.878 & 48000 & 0.903 & stable\_\allowbreak circuit \\
+nanda\_a\_mlp & 4 & 1.000 & 0.829 & 5000 & 0.867 & 5500 & 0.890 & stable\_\allowbreak circuit \\
+trm\_full\_a & 0 & 1.000 & 0.408 & 4700 & 0.000 & 9500 & 0.443 & stable\_\allowbreak circuit \\
+trm\_full\_a & 1 & 0.996 & 0.514 & 6100 & 0.000 & 6000 & 0.514 & stable\_\allowbreak circuit \\
+trm\_full\_a & 2 & 0.063 & 0.383 & 5400 & 0.000 & 6500 & 0.401 & incomplete\_\allowbreak grokking\_\allowbreak by\_\allowbreak 20k \\
+trm\_full\_a & 3 & 0.996 & 0.295 & 6900 & 0.000 & 7500 & 0.388 & cleanup\_\allowbreak phase\_\allowbreak fve\_\allowbreak collapse \\
+trm\_full\_a & 4 & 1.000 & 0.364 & 8200 & 0.000 & 8500 & 0.501 & cleanup\_\allowbreak phase\_\allowbreak fve\_\allowbreak collapse \\
+trm\_full\_b & 0 & 1.000 & 0.093 & 4100 & 0.000 & 39000 & 0.220 & cleanup\_\allowbreak phase\_\allowbreak fve\_\allowbreak collapse \\
+trm\_full\_b & 1 & 1.000 & 0.377 & 18000 & 0.238 & 33000 & 0.445 & cleanup\_\allowbreak phase\_\allowbreak fve\_\allowbreak collapse \\
+trm\_full\_b & 2 & 0.993 & 0.082 & 7300 & 0.000 & 46500 & 0.437 & cleanup\_\allowbreak phase\_\allowbreak fve\_\allowbreak collapse \\
+trm\_full\_b & 3 & 0.772 & 0.304 & 3400 & 0.000 & 37500 & 0.186 & incomplete\_\allowbreak grokking\_\allowbreak by\_\allowbreak 20k,\allowbreak cleanup\_\allowbreak phase\_\allowbreak fve\_\allowbreak collapse \\
+trm\_full\_b & 4 & 1.000 & 0.082 & 8900 & 0.000 & 27500 & 0.204 & cleanup\_\allowbreak phase\_\allowbreak fve\_\allowbreak collapse \\
+trm\_minimal & 0 & 1.000 & 0.937 & 4500 & 0.947 & 5000 & 0.962 & stable\_\allowbreak circuit \\
+trm\_minimal & 1 & 1.000 & 0.907 & 9400 & 0.000 & 46500 & 0.909 & stable\_\allowbreak circuit \\
+trm\_minimal & 2 & 1.000 & 0.198 & 14700 & 0.000 & 15000 & 0.642 & cleanup\_\allowbreak phase\_\allowbreak fve\_\allowbreak collapse \\
+trm\_minimal & 3 & 1.000 & 0.272 & 9400 & 0.000 & 9500 & 0.858 & cleanup\_\allowbreak phase\_\allowbreak fve\_\allowbreak collapse \\
+trm\_minimal & 4 & 1.000 & 0.228 & 19000 & 0.518 & 19500 & 0.558 & post\_\allowbreak grokking\_\allowbreak fve\_\allowbreak decay,\allowbreak cleanup\_\allowbreak phase\_\allowbreak fve\_\allowbreak collapse \\
+\bottomrule
+\end{longtable}
+\normalsize

@@ -1,0 +1,75 @@
+\documentclass[11pt]{article}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{natbib}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{array}
+\sloppy
+\usepackage{style/meta_report}
+
+\title{Hybrid Latent Grokking:\\Mechanistic Interpretability Across a Model Ladder}
+\author{%
+  Aditya Kumar Pandey\thanks{Bytesflow AI. \texttt{aditya@bytesflow.ai}. Led research design, training experiments, and mechanistic analysis.} \and
+  Anuj Kumar Pandey\thanks{Bytesflow AI. \texttt{anuj@bytesflow.ai}. Helped write the code, create the figures, and write the paper draft.}%
+}
+\date{}
+
+\IfFileExists{metrics_hybrid.tex}{\input{metrics_hybrid.tex}}{%
+  \IfFileExists{metrics.tex}{\input{metrics.tex}}{%
+    \newcommand{\HybridNandaAcc}{TBD}
+    \newcommand{\HybridMinimalAcc}{TBD}
+    \newcommand{\HybridFullAcc}{TBD}
+    \newcommand{\HybridNandaFVE}{TBD}
+    \newcommand{\HybridMinimalFVE}{TBD}
+    \newcommand{\HybridFullFVE}{TBD}
+    \newcommand{\HybridNandaFVEAdaptive}{TBD}
+    \newcommand{\HybridMinimalFVEAdaptive}{TBD}
+    \newcommand{\HybridFullFVEAdaptive}{TBD}
+    \newcommand{\HybridNandaSeedsClean}{0}
+    \newcommand{\HybridMinimalSeedsClean}{0}
+    \newcommand{\NandaAdaptiveKRange}{--}
+    \newcommand{\BMIKeyFreqs}{TBD}
+    \newcommand{\BMIWLKeyFreqs}{TBD}
+    \newcommand{\BMITestAcc}{TBD}
+    \newcommand{\BMIFullTestCE}{TBD}
+    \newcommand{\BMITrigTestCE}{TBD}
+    \newcommand{\BMIExcludedTestCE}{TBD}
+    \newcommand{\BMIFVEMean}{TBD}
+    \newcommand{\BMIEmGini}{TBD}
+    \newcommand{\BMINSeeds}{5}
+  }%
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study grokking in a three-model ladder on modular addition ($P{=}113$): a Nanda-style one-layer MLP, a minimal Tiny Recursive Model (TRM), and a full ACT-based TRM (50{,}000 steps, $\BMINSeeds$ seeds).
+Before extending TRM training, we run Ren-style mechanistic probes \citep{ren2026reasoning} on 20k checkpoints to separate Nanda cleanup from latent guessing.
+The Nanda MLP calibrates our progress-measure stack: under a data-driven key-frequency count (matching \citealp{nanda2023progress}), all $\HybridNandaSeedsClean$/$\BMINSeeds$ seeds reach faithful trig-FVE $\geq 0.95$ (mean $\HybridNandaFVEAdaptive$); a fixed five-frequency reconstruction under-reports this to $\HybridNandaFVE$.
+Minimal TRM reaches Nanda-grade sparse Fourier structure on $\HybridMinimalSeedsClean$/$\BMINSeeds$ seeds at the final checkpoint (adaptive FVE $\approx 0.99$); three seeds collapse under post-grokking cleanup (adaptive mean $\HybridMinimalFVEAdaptive$).
+Full TRM groks ($\HybridFullAcc$ test accuracy) but does not form the Fourier circuit (adaptive FVE mean $\HybridFullFVEAdaptive$); Ren probes show fixed-point violation and ACT-depth guessing.
+We report final, grokking, and best-FVE checkpoints, adaptive FVE calibration, all-frequency ablations, per-neuron tables, and Nanda-style phase plots.
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/methods}
+\input{sections/calibration_nanda}
+\input{sections/trm_minimal_main}
+\input{sections/full_trm_extension}
+\input{sections/ren_diagnosis}
+\input{sections/related_work}
+\input{sections/limitations}
+
+\appendix
+\input{appendix}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

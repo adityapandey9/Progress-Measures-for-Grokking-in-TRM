@@ -1,0 +1,49 @@
+\section{TRM minimal: main Nanda-grade result}
+
+TRM minimal is our primary mechanistic target: a recursive variant that can form a Nanda-style sparse Fourier circuit on modular addition.
+
+\paragraph{Multi-seed summary.}
+Table~\ref{tab:main_results} reports mean$\pm$std over $\BMINSeeds$ seeds at the analyzed final checkpoint.
+Table~\ref{tab:checkpoint_compare} adds grokking- and best-FVE-selected checkpoints from the logged training history.
+Final-checkpoint faithful FVE is $\HybridMinimalFVE$; best-FVE across seeds averages $\HybridMinimalFVEBest$ (seed~0 peak: $\HybridMinimalFVESeedZero$).
+
+\paragraph{Progress measures and phases.}
+Figure~\ref{fig:phase} shows the Nanda-style phase plot: total squared weight norm, restricted/excluded test CE, embedding Gini, and faithful FVE vs.\ training step.
+Restricted trig loss approaches full loss before the test-accuracy jump; excluded loss rises when key Fourier components are removed post-grokking.
+
+\input{sections/mechanistic_minimal}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figures/fig_phase_combined.pdf}
+  \caption{Combined grokking phase metrics (TRM minimal seed~0): weight norms, progress measures, Gini, and FVE.}
+  \label{fig:phase}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figures/fig_all_frequency_ablations.pdf}
+  \caption{All-frequency retain vs.\ ablate test cross-entropy (TRM minimal seed~0).}
+  \label{fig:all_freq}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figures/fig_hybrid_multiseed_grokking.pdf}
+  \caption{Per-seed test accuracy trajectories for all four models (50k steps).}
+  \label{fig:multiseed_curves}
+\end{figure}
+
+\begin{table}[h]
+  \centering
+  \caption{Checkpoint selection comparison (mean$\pm$std over seeds).}
+  \label{tab:checkpoint_compare}
+  \input{tables/checkpoint_comparison}
+\end{table}
+
+\begin{table}[h]
+  \centering
+  \caption{TRM minimal seed-variance diagnosis.}
+  \label{tab:seed_variance}
+  \input{tables/trm_minimal_seed_variance}
+\end{table}

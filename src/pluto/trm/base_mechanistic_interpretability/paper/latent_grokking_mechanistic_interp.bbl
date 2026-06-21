@@ -1,0 +1,147 @@
+\begin{thebibliography}{21}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Banino et~al.(2021)Banino, Balaguer, and
+  Blundell]{banino2021pondernet}
+Andrea Banino, Jan Balaguer, and Charles Blundell.
+\newblock Pondernet: Learning to ponder.
+\newblock \emph{arXiv preprint arXiv:2107.05407}, 2021.
+
+\bibitem[Chughtai et~al.(2023)Chughtai, Chan, and Nanda]{chughtai2023toy}
+Bilal Chughtai, Lawrence Chan, and Neel Nanda.
+\newblock A toy model of universality: Reverse engineering how networks learn
+  group operations.
+\newblock \emph{International Conference on Machine Learning (ICML)}, 2023.
+
+\bibitem[Conmy et~al.(2023)Conmy, Mavor-Parker, Lynch, Heimersheim, and
+  Garriga-Alonso]{conmy2023automated}
+Arthur Conmy, Augustine~N Mavor-Parker, Aengus Lynch, Stefan Heimersheim, and
+  Adri{\`a} Garriga-Alonso.
+\newblock Towards automated circuit discovery for mechanistic interpretability.
+\newblock \emph{Advances in Neural Information Processing Systems (NeurIPS)},
+  2023.
+
+\bibitem[Dehghani et~al.(2019)Dehghani, Gouws, Vinyals, Uszkoreit, and
+  Kaiser]{dehghani2019universal}
+Mostafa Dehghani, Stephan Gouws, Oriol Vinyals, Jakob Uszkoreit, and Lukasz
+  Kaiser.
+\newblock Universal transformers.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2019.
+
+\bibitem[Elhage et~al.(2021)Elhage, Nanda, Olsson,
+  et~al.]{elhage2021mathematical}
+Nelson Elhage, Neel Nanda, Catherine Olsson, et~al.
+\newblock A mathematical framework for transformer circuits.
+\newblock \emph{Transformer Circuits Thread}, 2021.
+
+\bibitem[Graves(2016)]{graves2016act}
+Alex Graves.
+\newblock Adaptive computation time for recurrent neural networks.
+\newblock In \emph{arXiv preprint arXiv:1603.08983}, 2016.
+
+\bibitem[Gromov(2023)]{gromov2023grokking}
+Andrey Gromov.
+\newblock Grokking modular arithmetic.
+\newblock \emph{arXiv preprint arXiv:2301.02679}, 2023.
+
+\bibitem[Jolicoeur-Martineau(2025)]{jolicoeur2025less}
+Alexia Jolicoeur-Martineau.
+\newblock Less is more: Recursive reasoning with tiny networks.
+\newblock \emph{arXiv preprint arXiv:2510.04871}, 2025.
+
+\bibitem[Liu et~al.(2022)Liu, Kitouni, Nolte, Michaud, Tegmark, and
+  Williams]{liu2022understanding}
+Ziming Liu, Ouail Kitouni, Niklas Nolte, Eric~J Michaud, Max Tegmark, and Mike
+  Williams.
+\newblock Towards understanding grokking: An effective theory of representation
+  learning.
+\newblock \emph{Advances in Neural Information Processing Systems (NeurIPS)},
+  2022.
+
+\bibitem[Loshchilov and Hutter(2019)]{loshchilov2019adamw}
+Ilya Loshchilov and Frank Hutter.
+\newblock Decoupled weight decay regularization.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2019.
+
+\bibitem[Merrill et~al.(2023)Merrill, Tsilivis, and Shukla]{merrill2023tale}
+William Merrill, Nikolaos Tsilivis, and Aman Shukla.
+\newblock A tale of two circuits: Grokking as competition of sparse and dense
+  subnetworks.
+\newblock \emph{arXiv preprint arXiv:2303.11873}, 2023.
+
+\bibitem[Nanda et~al.(2023)Nanda, Chan, Lieberum, Smith, and
+  Steinhardt]{nanda2023progress}
+Neel Nanda, Lawrence Chan, Tom Lieberum, Jess Smith, and Jacob Steinhardt.
+\newblock Progress measures for grokking via mechanistic interpretability.
+\newblock \emph{arXiv preprint arXiv:2301.05217}, 2023.
+
+\bibitem[Olah et~al.(2020)Olah, Cammarata, Schubert, Goh, Petrov, and
+  Carter]{olah2020zoom}
+Chris Olah, Nick Cammarata, Ludwig Schubert, Gabriel Goh, Michael Petrov, and
+  Shan Carter.
+\newblock Zoom in: An introduction to circuits.
+\newblock \emph{Distill}, 2020.
+
+\bibitem[Power et~al.(2022)Power, Burda, Edwards, Babuschkin, Misra,
+  et~al.]{power2022grokking}
+Alethea Power, Yuri Burda, Harri Edwards, Igor Babuschkin, Vedant Misra, et~al.
+\newblock Grokking: Generalization beyond overfitting on small algorithmic
+  datasets.
+\newblock \emph{arXiv preprint arXiv:2201.02177}, 2022.
+
+\bibitem[Ren and Liu(2026)]{ren2026reasoning}
+Zirui Ren and Ziming Liu.
+\newblock Are your reasoning models reasoning or guessing? a mechanistic
+  analysis of hierarchical reasoning models.
+\newblock \emph{arXiv preprint arXiv:2601.10679}, 2026.
+
+\bibitem[Thilak et~al.(2022)Thilak, Littwin, Zhai, Saremi, Paiss, and
+  Susskind]{thilak2022slingshot}
+Vimal Thilak, Etai Littwin, Shuangfei Zhai, Omid Saremi, Roni Paiss, and Joshua
+  Susskind.
+\newblock The slingshot mechanism: An empirical study of adaptive optimizers
+  and the grokking phenomenon.
+\newblock \emph{arXiv preprint arXiv:2206.04817}, 2022.
+
+\bibitem[Varma et~al.(2023)Varma, Shah, Kenton, Kram{\'a}r, and
+  Kumar]{varma2023grokking}
+Vikrant Varma, Rohin Shah, Zachary Kenton, J{\'a}nos Kram{\'a}r, and Ramana
+  Kumar.
+\newblock Explaining grokking through circuit efficiency.
+\newblock \emph{arXiv preprint arXiv:2309.02390}, 2023.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, and Polosukhin]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, Lukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2017.
+
+\bibitem[Wang et~al.(2022)Wang, Variengien, Conmy, Shlegeris, and
+  Steinhardt]{wang2022interpretability}
+Kevin Wang, Alexandre Variengien, Arthur Conmy, Buck Shlegeris, and Jacob
+  Steinhardt.
+\newblock Interpretability in the wild: a circuit for indirect object
+  identification in gpt-2 small.
+\newblock \emph{arXiv preprint arXiv:2211.00593}, 2022.
+
+\bibitem[Wang et~al.(2025)]{wang2025hrm}
+Zhen Wang et~al.
+\newblock Hierarchical reasoning model.
+\newblock \emph{arXiv preprint arXiv:2506.21769}, 2025.
+
+\bibitem[Zhong et~al.(2023)Zhong, Liu, Tegmark, and Andreas]{zhong2023clock}
+Ziqian Zhong, Ziming Liu, Max Tegmark, and Jacob Andreas.
+\newblock The clock and the pizza: Two stories in mechanistic explanation of
+  neural networks.
+\newblock \emph{Advances in Neural Information Processing Systems (NeurIPS)},
+  2023.
+
+\end{thebibliography}

@@ -1,0 +1,136 @@
+\section{Faithful progress measures (Nanda et al.)}
+\label{app:progress}
+
+For logits $L_{a,b,c}$ over all $(a,b,c)\in\{0,\ldots,P{-}1\}^3$, we define restricted (trigonometric) and excluded loss on the full $P^3$ logit grid following \citet{nanda2023progress}.
+
+\section{Checkpoint selection}
+\label{app:checkpoints}
+
+For each seed we select three checkpoints from the logged training history:
+\textbf{Final} (last logged step),
+\textbf{Grokking} (first step with test accuracy $\geq 0.99$ and test loss $\leq 0.05$),
+\textbf{Best FVE} (highest faithful trig-FVE among steps with test accuracy $\geq 0.99$).
+Full TRM mechanistic analysis uses grokking/best-FVE when final checkpoints degrade.
+
+\input{tables/checkpoint_comparison}
+
+\section{Per-seed metrics}
+\label{app:perseed}
+
+Table~\ref{tab:perseed} lists every seed with final, grokking, and best-FVE metrics plus automated variance diagnosis.
+
+\input{tables/per_seed_metrics}
+
+\section{TRM minimal seed variance}
+\label{app:variance}
+
+Post-grokking cleanup (weight decay removing memorizing components) can collapse faithful FVE while test accuracy remains high---mirroring Nanda's cleanup phase but with higher seed variance in TRM minimal.
+
+\input{tables/trm_minimal_seed_variance}
+
+\section{Grokking dynamics and progress measures}
+\label{app:grokking}
+
+Figure~\ref{fig:grokking_curves} shows train/test accuracy and loss across
+training (delayed generalization), and Figure~\ref{fig:progress_measures} shows
+the restricted (trigonometric) and excluded losses tracking the full loss
+post-grokking, mirroring Figure~1 of \citet{nanda2023progress}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figures/fig_grokking_curves.pdf}
+  \caption{Train/test accuracy and loss vs.\ step (TRM minimal seed~0).}
+  \label{fig:grokking_curves}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figures/fig_progress_measures.pdf}
+  \caption{Restricted, excluded, and full cross-entropy vs.\ step.}
+  \label{fig:progress_measures}
+\end{figure}
+
+\section{Mechanistic circuit analysis}
+\label{app:mechanistic}
+
+We analyze $W_E$, $W_U$, logit-map DFT energy, $W_L$ neuron--logit maps, MLP neuron clustering ($R^2$ to $\cos/\sin(\omega_k(a+b))$), and attention routing.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figures/fig_progress_trajectory.pdf}
+  \caption{Progress measures across saved checkpoints (TRM minimal seed~0).}
+  \label{fig:traj}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/fig_frequency_ablations.pdf}
+  \caption{Causal key-frequency ablations at convergence.}
+  \label{fig:abl}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figures/fig_mechanistic_circuit.pdf}
+  \caption{Embedding and unembedding Fourier components.}
+  \label{fig:mech}
+\end{figure}
+
+\section{Multi-seed robustness}
+\label{app:seeds}
+
+We train seeds $\{0,1,2,3,4\}$ for 50{,}000 steps; per-seed accuracy, best-FVE, and grokking curves appear in the main text (Figures~\ref{fig:multiseed} and~\ref{fig:multiseed_curves}).
+
+\section{Combined phase plot (Nanda Fig.~7 style)}
+\label{app:phase}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/fig_weight_norm_phases.pdf}
+  \caption{Weight-norm trajectory annotated with memorization, circuit-formation,
+  and cleanup phases (\citealp{nanda2023progress}, Fig.~7 style).}
+  \label{fig:weight_norm_phases}
+\end{figure}
+
+\section{Frequency ablations}
+\label{app:ablations}
+
+\begin{enumerate}
+  \item \textbf{Trig (key):} retain only key-frequency components.
+  \item \textbf{Excluded (key):} remove key components sequentially.
+  \item \textbf{All-frequency grid:} retain/ablate each $k\in\{1,\ldots,P/2\}$ individually.
+\end{enumerate}
+
+The all-frequency ablation grid appears in the main text (Figure~\ref{fig:all_freq}).
+
+\section{Hyperparameters}
+\label{app:hparams}
+
+\begin{table}[h]
+  \centering
+  \caption{Training hyperparameters (hybrid rigor, 50k steps).}
+  \begin{tabular}{ll}
+    \toprule
+    Parameter & Value \\
+    \midrule
+    $P$ & 113 \\
+    Train fraction & 0.3 \\
+    Optimizer & AdamW \\
+    Learning rate & $10^{-3}$ \\
+    Weight decay & 1.0 \\
+    $\beta_1, \beta_2$ & 0.9, 0.98 \\
+    Steps & 50{,}000 \\
+    Seeds & $\BMINSeeds$ \\
+    Hidden size & 128 \\
+    Heads & 4 \\
+    ACT max steps & 8 (full TRM) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{HRM / latent recursion probes}
+\label{app:hrm}
+
+Fixed-point violation rate, reasoning-mode counts, mean-field CE by ACT step, and ACT-depth ablations.
+
+\input{sections/detailed_methods}

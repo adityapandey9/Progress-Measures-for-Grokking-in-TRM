@@ -1,0 +1,70 @@
+\section{Detailed progress-measure methodology}
+\label{app:detailed_methods}
+
+This appendix mirrors Section~5 of \citet{nanda2023progress} with TRM-specific implementation notes.
+
+\subsection{Logit grid extraction}
+For each pair $(a,b)$ in the modular-addition dataset, TRM receives input tokens $[a, b, \texttt{=}]$.
+We run a single forward pass with ACT halted and read logits at position~2 (the ``$=$'' token).
+Stacking over all $P^2$ pairs yields $L \in \mathbb{R}^{P \times P \times P}$ where $L_{a,b,c}$ is the logit for output $c$.
+
+\subsection{Fourier basis on cyclic groups}
+For prime modulus $P=113$, define $\omega_k = 2\pi k / P$.
+Basis functions on index $x \in \{0,\ldots,P-1\}$:
+\begin{align}
+  \phi_k^{\cos}(x) &= \cos(\omega_k x), &
+  \phi_k^{\sin}(x) &= \sin(\omega_k x).
+\end{align}
+For the logit map, the trigonometric identity $\cos(\omega_k(a+b-c))$ decomposes into products of 1D Fourier components along $a$, $b$, and $c$.
+
+\subsection{Restricted (trigonometric) loss}
+Given key frequencies $K = \{k_1,\ldots,k_5\}$, we project $L$ onto the span of $\cos(\omega_k(a+b))$ and $\sin(\omega_k(a+b))$ directions for $k \in K$, apply bias correction per \citet{nanda2023progress}, and compute cross-entropy against labels on train and test splits.
+
+\subsection{Excluded loss}
+For each $k \in K$ in descending sensitivity order, we subtract the rank-1 component associated with frequency $k$ from logits and measure test CE.
+High excluded loss at step~2000 and low excluded loss at convergence indicate circuit formation.
+
+\subsection{Embedding and unembedding Fourier norms}
+$W_E \in \mathbb{R}^{P \times d}$: apply 1D DFT along the token axis (rows), sum $\ell_2$ energy per frequency pair $(k_{\cos}, k_{\sin})$.
+$W_U \in \mathbb{R}^{P \times d}$: same along the vocabulary axis of the output head.
+Key frequencies are those with largest excluded-loss sensitivity (not simply largest embedding norm).
+
+\subsection{Gini coefficient}
+Following Nanda Appendix~B, we compute the Gini coefficient of the vector of embedding Fourier norms to track sparsification during grokking.
+
+\section{Reverse-engineering methodology}
+\label{app:reverse_methods}
+
+\subsection{$W_L$ neuron-logit map}
+For SwiGLU layer $\ell$ with down-projection $W_{\mathrm{down}}^{(\ell)} \in \mathbb{R}^{d \times d_{\mathrm{ff}}}$ and unembedding $W_U \in \mathbb{R}^{P \times d}$:
+\begin{equation}
+  W_L^{(\ell)} = (W_{\mathrm{down}}^{(\ell)})^\top W_U^\top \in \mathbb{R}^{d_{\mathrm{ff}} \times P}.
+\end{equation}
+Each row of $W_L$ maps one MLP neuron to logits over $c$; we DFT each row along the $P$-axis.
+
+\subsection{MLP neuron clustering}
+For all $(a,b)$ pairs, record post-activation MLP outputs $h_n(a,b)$ at the ``$=$'' token.
+Assign neuron $n$ to frequency $k$ maximizing $R^2(h_n, \cos(\omega_k(a+b)))$ or $\sin(\omega_k(a+b))$.
+
+\subsection{Attention decomposition}
+For layer~0, extract mean attention weights from query position~2 (``$=$'') to positions~0 ($a$) and~1 ($b$), averaged over all $(a,b)$ and batch.
+Compare per-head routing strength to Nanda's Figure~4.
+
+\subsection{Component patching}
+We patch attention outputs and MLP outputs separately, measuring change in test CE relative to baseline, following the causal scrubbing spirit of \citet{nanda2023progress} Section~4.3.
+
+\section{Latent probe methodology}
+\label{app:latent_methods}
+
+\subsection{ACT outer loop}
+TRM uses adaptive computation time with maximum 8 steps.
+At each ACT step $t$, we record $z_H$ at the ``$=$'' token and the predicted logit distribution.
+
+\subsection{Fixed-point violation}
+For test examples where step~0 prediction is correct, we flag violation if any later step changes the argmax prediction.
+
+\subsection{Reasoning modes}
+Following \citet{ren2026reasoning}: \textbf{trivial success} (correct at step~0), \textbf{nontrivial success} (wrong then correct), \textbf{nontrivial failure} (never correct), \textbf{oscillation} (alternating predictions).
+
+\subsection{PCA trajectories}
+For individual examples, stack $z_H^{(t)} \in \mathbb{R}^d$ across ACT steps and apply PCA for visualization.

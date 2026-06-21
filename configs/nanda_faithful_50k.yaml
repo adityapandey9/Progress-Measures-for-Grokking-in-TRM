@@ -1,0 +1,8 @@
+protocol: nanda_faithful_50k
+preset: minimal_hiprec_act
+loss_type: cross_entropy_high_precision
+max_steps: 50000
+weight_decay: 1.0
+frac_train: 0.3
+p: 113
+seeds: [0, 1, 2, 3, 4]

@@ -1,0 +1,20 @@
+\section{Related work}
+\label{sec:related}
+Grokking was first reported by \citet{power2022grokking} and given a mechanistic
+account by \citet{nanda2023progress}, who identified a sparse Fourier
+multiplication circuit on modular addition; subsequent work explains the delayed
+transition via representation learning \citep{liu2022understanding}, circuit
+efficiency \citep{varma2023grokking}, optimizer dynamics \citep{thilak2022slingshot},
+and competing sparse/dense subnetworks \citep{merrill2023tale}. Our analysis
+builds on the mechanistic-interpretability toolkit
+\citep{elhage2021mathematical,olah2020zoom,wang2022interpretability,conmy2023automated}
+and on the modular-arithmetic circuit literature
+\citep{zhong2023clock,gromov2023grokking,chughtai2023toy}. The
+recursive/adaptive-computation lineage we extend includes ACT
+\citep{graves2016act}, Universal Transformers \citep{dehghani2019universal}, and
+PonderNet \citep{banino2021pondernet}, with HRM \citep{wang2025hrm} and TRM
+\citep{jolicoeur2025less} as the immediate predecessors and \citet{ren2026reasoning}
+as the reasoning-vs-guessing diagnostic we adopt. Architecture and optimization
+follow \citet{vaswani2017attention} and \citet{loshchilov2019adamw}. We unify
+these threads by measuring weight-level progress \emph{and} latent ACT probes in
+the same TRM training run.

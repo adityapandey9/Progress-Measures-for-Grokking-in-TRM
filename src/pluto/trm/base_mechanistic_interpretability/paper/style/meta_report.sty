@@ -1,0 +1,33 @@
+% Meta / FAIR-inspired report styling (visual approximation of arXiv:2605.29955)
+\ProvidesPackage{meta_report}[2026/06/09 Meta-style report]
+
+\RequirePackage{mathptmx}
+\RequirePackage{xcolor}
+\RequirePackage{microtype}
+\RequirePackage{titlesec}
+
+\definecolor{MetaBlue}{HTML}{0866FF}
+\definecolor{MetaGray}{HTML}{606770}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=MetaBlue,
+  citecolor=MetaBlue,
+  urlcolor=MetaBlue,
+  pdfauthor={Aditya Kumar Pandey, Anuj Kumar Pandey},
+}
+
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{0.75em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.0em}{0.5em}
+\titlespacing*{\subsection}{0pt}{0.75em}{0.35em}
+
+\renewcommand{\abstractname}{\textbf{Abstract}}
+\renewcommand{\footnotesize}{\small}
+
+\newcommand{\equalcontrib}{\textsuperscript{*}}
+\newcommand{\corresponding}[1]{\thanks{#1}}
+\newcommand{\codeurl}[1]{\textbf{Code:} \url{#1}}

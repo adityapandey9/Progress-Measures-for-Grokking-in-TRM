@@ -1,0 +1,21 @@
+\section{Introduction}
+
+Grokking is a delayed transition from memorization to generalization.
+\citet{nanda2023progress} showed that, for one-layer transformers on modular addition, this transition is explained by the gradual formation of a sparse Fourier multiplication circuit.
+
+Recursive architectures such as TRM introduce a second computational axis: latent recurrent refinement.
+This raises a mechanistic question not answered by the one-layer setting: when a recursive model groks, is the learned algorithm still visible as a simple final-logit Fourier circuit, or does recursion move part of the computation into latent dynamics?
+
+We answer this with a three-model ladder.
+First, a Nanda-style one-layer baseline calibrates the progress-measure implementation.
+Second, a minimal TRM ablation isolates the TRM family while keeping the computation close to the one-layer setting.
+Third, full TRM tests what changes when ACT-style latent recursion is restored.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+  \item We reproduce Nanda-style progress measures in-repo and validate them with a one-layer calibration model.
+  \item We show that minimal TRM can recover a high-FVE sparse Fourier circuit on modular addition (best-seed/checkpoint evidence), with documented seed variance at the final checkpoint.
+  \item We show that full TRM groks but has a different mechanistic signature: lower final-logit trig-FVE, Ren-style fixed-point violation, and ACT-depth guessing; minimal TRM serves as a Ren null control.
+  \item We diagnose post-grokking FVE collapse with Ren + Nanda probes (Section~\ref{sec:ren}) before any TRM 50k extension.
+  \item We provide multi-seed metrics, all-frequency ablations, per-neuron tables, weight-norm phase plots, and compiled paper artifacts.
+\end{enumerate}

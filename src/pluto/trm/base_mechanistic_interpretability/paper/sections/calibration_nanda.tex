@@ -1,0 +1,63 @@
+\section{Nanda calibration}
+
+The one-layer Nanda-style MLP baseline (fidelity~A) validates our progress-measure implementation against \citet{nanda2023progress}.
+
+Multi-seed aggregates (Table~\ref{tab:main_results}): test accuracy $\HybridNandaAcc$, final-checkpoint faithful FVE $\HybridNandaFVE$ under a fixed five-frequency reconstruction.
+Best-FVE checkpoints reach higher FVE (Table~\ref{tab:checkpoint_compare}).
+Figure~\ref{fig:hybrid_comparison} places calibration on the model ladder.
+
+\paragraph{Key-frequency count must be data-driven.}
+\citet{nanda2023progress} set the number of key frequencies from the number of
+distinct frequencies the MLP neurons specialize in; it is not a fixed constant.
+Truncating the trigonometric reconstruction at exactly five frequencies
+under-reports models whose circuit spans six to nine frequencies. When we instead
+select frequencies until the bias-corrected FVE plateaus (Appendix~\ref{app:detailed_methods}),
+all $\HybridNandaSeedsClean$/$\BMINSeeds$ Nanda seeds reach faithful trig-FVE
+$\geq 0.95$ (mean $\HybridNandaFVEAdaptive$, $K=\NandaAdaptiveKRange$ frequencies),
+matching the $\sim$95\% reported by \citet{nanda2023progress} and confirming our
+progress-measure stack is correctly calibrated.
+The five-frequency value is therefore a lower bound, not a ceiling: the apparent
+calibration shortfall is a metric artifact, not a defect of the model or training.
+Figure~\ref{fig:fve_calibration} shows FVE rising to $\approx 0.99$ as $K$ grows
+for the Nanda baseline (and for the two converged minimal-TRM seeds), while
+degraded seeds and full TRM plateau far below.
+Table~\ref{tab:corrected_fve} summarizes legacy vs.\ adaptive FVE per model.
+
+\begin{table}[h]
+  \centering
+  \caption{Faithful trig-FVE at the 50k final checkpoint: legacy fixed five-frequency reconstruction vs.\ data-driven (adaptive) frequency count.}
+  \label{tab:corrected_fve}
+  \input{tables/corrected_fve}
+\end{table}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.98\linewidth]{figures/fig_fve_calibration.pdf}
+  \caption{Faithful trig-FVE vs.\ number of key frequencies $K$ on 50k final
+  checkpoints. Red dotted line: legacy $K{=}5$ cut-off; gray dashed: $0.95$.
+  The Nanda baseline reaches $\approx 0.99$ by $K{\approx}7$; the legacy cut-off
+  truncated this rise. Two minimal-TRM seeds match this profile; the remaining
+  minimal seeds and all full-TRM seeds plateau low (non-Fourier mechanism).}
+  \label{fig:fve_calibration}
+\end{figure}
+
+\begin{table}[h]
+  \centering
+  \caption{Multi-seed main results at analyzed final checkpoint (mean$\pm$std).}
+  \label{tab:main_results}
+  \input{tables/main_results}
+\end{table}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figures/fig_hybrid_model_comparison.pdf}
+  \caption{Final vs.\ best-FVE faithful trig-FVE across models.}
+  \label{fig:hybrid_comparison}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/fig_multi_seed.pdf}
+  \caption{Multi-seed final accuracy and best-FVE faithful FVE ($\BMINSeeds$ seeds, 50k steps).}
+  \label{fig:multiseed}
+\end{figure}
